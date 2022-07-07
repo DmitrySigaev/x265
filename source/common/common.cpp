@@ -136,7 +136,7 @@ void general_log(const x265_param* param, const char* caller, int level, const c
         p += sprintf(buffer, "%-4s [%s]: ", caller, log_level);
     va_list arg;
     va_start(arg, fmt);
-    if (param->pf_log != nullptr)
+    if (param->pf_log != NULL)
         param->pf_log(param->p_log_private, level, fmt, arg);
     else
         vsnprintf(buffer + p, bufferSize - p, fmt, arg);
