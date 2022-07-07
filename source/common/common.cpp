@@ -136,11 +136,14 @@ void general_log(const x265_param* param, const char* caller, int level, const c
         p += sprintf(buffer, "%-4s [%s]: ", caller, log_level);
     va_list arg;
     va_start(arg, fmt);
-    vsnprintf(buffer + p, bufferSize - p, fmt, arg);
+    if (param->pf_log != nullptr)
+        param->pf_log(param->p_log_private, level, fmt, arg);
+    else
+        vsnprintf(buffer + p, bufferSize - p, fmt, arg);
     va_end(arg);
-    fputs(buffer, stderr);
+    if (!param->pf_log)
+        fputs(buffer, stderr);
 }
-
 #if _WIN32
 /* For Unicode filenames in Windows we convert UTF-8 strings to UTF-16 and we use _w functions.
  * For other OS we do not make any changes. */

@@ -861,6 +861,10 @@ typedef struct x265_param
      * X265_LOG_FULL, default is X265_LOG_INFO */
     int       logLevel;
 
+    /* Log */
+    void        (*pf_log)(void*, int i_level, const char* psz, va_list);
+    void* p_log_private;
+
     /* Level of csv logging. 0 is summary, 1 is frame level logging,
      * 2 is frame level logging with performance statistics */
     int       csvLogLevel;
