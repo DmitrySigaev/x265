@@ -123,6 +123,8 @@ void x265_param_default(x265_param* param)
     param->frameNumThreads = 0;
 
     param->logLevel = X265_LOG_INFO;
+    param->pf_log = NULL; // outside log function, for example for ffmpeg
+    param->p_log_private = NULL; // outside log private context
     param->csvLogLevel = 0;
     param->csvfn = NULL;
     param->rc.lambdaFileName = NULL;
@@ -2447,6 +2449,8 @@ void x265_copy_params(x265_param* dst, x265_param* src)
     dst->bEnablePsnr = src->bEnablePsnr;
     dst->bEnableSsim = src->bEnableSsim;
     dst->logLevel = src->logLevel;
+    dst->pf_log = src->pf_log;
+    dst->p_log_private = src->p_log_private;
     dst->csvLogLevel = src->csvLogLevel;
     if (src->csvfn) dst->csvfn = strdup(src->csvfn);
     else dst->csvfn = NULL;
